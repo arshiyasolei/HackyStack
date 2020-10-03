@@ -8,7 +8,7 @@ window.onload = function(){
 
   // Setup sigma window
   sigma.parsers.json('data.json', {
-    container: 'container',
+    container: 'graph container',
         settings: {
             scalingMode: "inside",
             sideMargin: 0,
