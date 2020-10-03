@@ -21,6 +21,8 @@ const app = express();
 const port = process.argv[2] || 8910
 app.set("port", port)
 
+app.get('/', (req, res) => res.sendFile('index.html') )
+
 app.use(function(req,res){
   res.type('text/plain');
   res.status(404);
@@ -41,3 +43,5 @@ function logger(req, res, next) {
     console.log("Req: ", "--Method", req.method, "--URL:", req.url)
     next();
 }
+
+app.listen(port, () => console.log(`app listening at http://localhost:${port}`))
