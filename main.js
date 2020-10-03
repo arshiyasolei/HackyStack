@@ -2,10 +2,22 @@ window.onload = function(){
   // Cool title animation
     new TypeIt("#typeme", {
         strings: "Contact Tracing by Hacky Stack",
-        speed: 75,
-        loop: true
+        speed: 35,
+        loop: false
       }).go();
 
+    let botui = new BotUI('hello-world');
+
+    botui.message.add({
+      content: 'Hello World from bot!'
+    }).then(function () { // wait till previous message has been shown.
+
+      botui.message.add({
+        delay: 1000,
+        human: true,
+        content: 'Hello World from human!'
+      });
+    });
   // Setup sigma window
   sigma.parsers.json('data.json', {
     container: 'container',
