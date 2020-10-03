@@ -26,6 +26,7 @@ window.onload = function(){
             sideMargin: 0,
             autoResize: false,
             autoRescale: true,
+            labelThreshold: 0,
             defaultNodeColor: '#ec5148'
         }
     });
@@ -40,16 +41,24 @@ function getLocalJson() {
 
 function populateTable(data) {
   var tableData = new Array();
-  for (var person in data["nodes"]) {
-    tableData.push([data["nodes"][person]["label"], data["nodes"][person]["color"] == "#f00", data["edges"].length]);
+  var nodeData = {};
+  for (var person of data["nodes"]) {
+    tableData.push([person["label"], person["color"] == "#f00", 0]);
+    nodeData[person["id"]] = 0;
   }
-  console.log(tableData);
+  for (var edge of data["edges"]) {
+    nodeData[edge["source"]] += 1;
+    nodeData[edge["target"]] += 1;
+  }
+
+  for (var i in data["nodes"]) {
+    tableData[i][2] = nodeData[data["nodes"][i]["id"]];
+  }
 
   let table = document.getElementById("main_t_body")
     table.innerHTML = ''
     let head_tr = document.createElement("tr");
     for (let row of tableData) {
-      console.log(row)
       tr = document.createElement("tr");
       
       // Name
