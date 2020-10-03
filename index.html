@@ -11,57 +11,30 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <style type="text/css">
+        #container {
+            max-width: 400px;
+            height: 400px;
+            margin: auto;
+        }
+    </style>
+
+    <title>Contact Tracing by Hacky Stack</title>
   </head>
 
   <body>
   
-  <h2 class="text-dark text-center mt-5">Workouts Table</h2>
-
-  <div class="container text-center">
-  <form  onsubmit="return false">
-    <div class="form-group mt-3 mb-3">
-    <label for="submitting_workout">name</label>
-    <input class="form-control" id="1" type="text" name="workoutinput_name">
-  </div>
-  <div class="form-group mt-3 mb-3">
-    <label for="submitting_workout">reps</label>
-    <input class="form-control" id="2" type="text" name="workoutinput_reps">
-  </div>
-  <div class="form-group mt-3 mb-3">
-    <label for="submitting_workout">weight</label>
-    <input class="form-control" id="3" type="text" name="workoutinput_weight">
-  </div>
-  <div class="form-group mt-3 mb-3">
-    <label for="submitting_workout">date</label>
-    <input type="date" class="form-control" id="4"  name="workoutinput_date">
-  </div>
-  <div class="form-group mt-3 mb-3">
-    <label for="submitting_workout">lbs</label>
-    <input class="form-control" id="5" type="text" name="workoutinput_lbs">
-  </div>
+  <h2 class="text-dark text-center mt-5">Contact Tracing by Hacky Stack</h2>
 
   <div class="container">
-    <button class="btn btn-primary mt-3 mb-3 " onclick="add_workout()" value="Send">Send</button>
-  </div>
-  </form>
-  </div>
-
-  <div class="container">
-  <table class="table table-bordered" id="main_table">
-    <thead>
-      <tr>
-        <th scope="col">name</th>
-        <th scope="col">reps</th>
-        <th scope="col">weight</th>
-        <th scope="col">date</th>
-        <th scope="col">lbs</th>
-      </tr>
-    </thead>  
-    <tbody id = "main_t_body">
-      </tbody>
-  </table>
-
+      <div class="row">
+          <div class="col-sm">
+              controls go here!
+          </div>
+          <div class="col-sm">
+              graph goes here!
+          </div>
+      </div>
   </div>
 
 </body>
