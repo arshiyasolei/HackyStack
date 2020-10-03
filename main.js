@@ -60,6 +60,9 @@ function populateTable(data) {
     let head_tr = document.createElement("tr");
     for (let row of tableData) {
       tr = document.createElement("tr");
+      if (row[1]) {
+        tr.style = "background: #f99";
+      }
       
       // Name
       td = document.createElement("td");
