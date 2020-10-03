@@ -1,10 +1,10 @@
-<h1 align="center">Welcome to hafte_cards!</h1>
+<h1 align="center">Welcome to HackyStack!</h1>
 <p>
 
    [![Build Status](https://travis-ci.org/arshiyasolei/hafte-cards.svg?branch=master)](https://travis-ci.org/arshiyasolei/hafte-cards)
 </p>
 
-<p> Hafte cards is an online multiplayer card game. Its gameplay is a variation of the dirty seven card game, and it supports public chat between all players! The backend is written with Node.js and the frontend is vanila javascript. This project uses the Socket.io framework as its networking framework. </p>
+<p> HackyStack is a website that allows you do COVID contact tracing! The backend is written with Node.js and the frontend is vanila javascript. This project uses the Socket.io framework as its networking framework. </p>
 
 ## Gameplay screenshot
 
@@ -36,7 +36,7 @@ npm test
 
 ## Author
 
-**Arshia Soleimani**
+**Arshia Soleimani, Allen Benjamin, Zackary Tayler**
 
 * Github: [@arshiyasolei](https://github.com/arshiyasolei)
 
