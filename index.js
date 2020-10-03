@@ -39,9 +39,12 @@ app.use(function(err, req, res, next){
 //
 // Logger function (displays all received requests to command line)
 //
-function logger(req, res, next) {
+app.use(function(req, res, next) {
     console.log("Req: ", "--Method", req.method, "--URL:", req.url)
     next();
-}
+});
 
+//
+// Listen for requests on "port"
+//
 app.listen(port, () => console.log(`app listening at http://localhost:${port}`))
