@@ -17,6 +17,19 @@ window.onload = function(){
             defaultNodeColor: '#ec5148'
         }
     });
+    getLocalJson();
+}
+
+function getLocalJson() {
+  fetch("data.json")
+  .then(response => response.json())
+  .then(json => populateTable(json));
+}
+
+function populateTable(data) {
+  for (var person in data["nodes"]) {
+    console.log(data["nodes"][person]["label"]);
+  }
 }
 
 function add_workout() {
