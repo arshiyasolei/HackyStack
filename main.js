@@ -1,3 +1,5 @@
+var s;
+
 window.onload = function(){
   // Cool title animation
     new TypeIt("#typeme", {
@@ -8,24 +10,40 @@ window.onload = function(){
 
 
   // Setup sigma window
-  sigma.parsers.json('data.json', {
+  s = new sigma({
     container: 'graph container',
-        settings: {
-            scalingMode: "inside",
-            sideMargin: 0,
-            autoResize: false,
-            autoRescale: true,
-            labelThreshold: 0,
-            defaultNodeColor: '#ec5148'
-        }
-    });
-    getLocalJson();
+    settings: {
+      scalingMode: "inside",
+      sideMargin: 0,
+      autoResize: false,
+      autoRescale: true,
+      labelThreshold: 0,
+      animationsTime: 500,
+      defaultNodeColor: '#ec5148'
+    }
+  });
+  sigma.parsers.json('data.json', s, function() {
+    s.refresh();
+  });
+  getLocalJson();
 }
 
 function getLocalJson() {
   fetch("data.json")
   .then(response => response.json())
-  .then(json => populateTable(json));
+  .then(json => populateTable(json))
+  .then(animate());
+}
+
+function animate() {
+  sigma.plugins.animate(
+    s,
+    {
+      x: 'grid_x',
+      y: 'grid_y'
+    }
+  );
+  console.log(s);
 }
 
 function populateTable(data) {
