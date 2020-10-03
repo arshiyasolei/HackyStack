@@ -15,20 +15,36 @@ const mysql = require("./dbcon.js");
 
 
 //
+// Routers
+//
+const indexRouter = require("./routers/indexRouter")
+
+//
 // Create new express app.
 //
 const app = express();
 const port = process.argv[2] || 8910
 app.set("port", port)
 
-app.get('/', (req, res) => res.sendFile('index.html') )
 
+//
+//
+//
+app.use("/", indexRouter)
+
+
+//
+//
+//
 app.use(function(req,res){
   res.type('text/plain');
   res.status(404);
   res.send('404 - Not Found');
 });
 
+//
+//
+//
 app.use(function(err, req, res, next){
   console.error(err.stack);
   res.type('plain/text');
