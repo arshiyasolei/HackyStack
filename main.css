@@ -1,16 +1,1 @@
-img.resize {
 
-    display: none;
-  }
-
-#back_and_forward {
-    
-    position: relative;
-    bottom: 55px;
-    margin-bottom: -50px;
-    left: 20px;
-}
-
-body {
-    position: absolute;
-}
