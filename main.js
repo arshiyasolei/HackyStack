@@ -2,7 +2,7 @@ window.onload = function(){
   // Cool title animation
     new TypeIt("#typeme", {
         strings: "Contact Tracing by Hacky Stack",
-        speed: 75,
+        speed: 100,
         loop: true
       }).go();
 
