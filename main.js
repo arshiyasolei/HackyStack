@@ -27,9 +27,35 @@ function getLocalJson() {
 }
 
 function populateTable(data) {
+  var tableData = new Array();
   for (var person in data["nodes"]) {
-    console.log(data["nodes"][person]["label"]);
+    tableData.push([data["nodes"][person]["label"], data["nodes"][person]["color"] == "#f00", data["edges"].length]);
   }
+  console.log(tableData);
+
+  let table = document.getElementById("main_t_body")
+    table.innerHTML = ''
+    let head_tr = document.createElement("tr");
+    for (let row of tableData) {
+      console.log(row)
+      tr = document.createElement("tr");
+      
+      // Name
+      td = document.createElement("td");
+      td.innerHTML = row[0];
+      tr.appendChild(td);
+
+      // Infection status
+      td = document.createElement("td");
+      td.innerHTML = row[1] ? "Infected" : "Healthy";
+      tr.appendChild(td);
+
+      // Number of contacts
+      td = document.createElement("td");
+      td.innerHTML = row[2].toString();
+      tr.appendChild(td);
+      table.appendChild(tr);
+    }
 }
 
 function add_workout() {
