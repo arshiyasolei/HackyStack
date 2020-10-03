@@ -2,10 +2,14 @@ window.onload = function(){
   // Cool title animation
     new TypeIt("#typeme", {
         strings: "Contact Tracing by Hacky Stack",
-        speed: 35,
-        loop: false
+        speed: 100,
+        loop: true
       }).go();
-
+      new TypeIt("#typeme2", {
+        strings: "About Us",
+        speed: 200,
+        loop: true
+      }).go();
 
   // Setup sigma window
   sigma.parsers.json('data.json', {
