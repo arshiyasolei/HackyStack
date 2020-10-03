@@ -6,10 +6,6 @@
 
 <p> HackyStack is a website that allows you do COVID contact tracing! The backend is written with Node.js and the frontend is vanila javascript. This project uses the Socket.io framework as its networking framework. </p>
 
-## Gameplay screenshot
-
-<img src="game_screenshot.png"/>
-
 ## Install
 
 ```sh
