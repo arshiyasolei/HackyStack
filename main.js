@@ -1,13 +1,41 @@
 var s;
+var imgarr
+var cur_image = 1
+var perv_image
+var canvas
+var ctx
+var w;
+var h;
 
 window.onload = function(){
   // Cool title animation
+    //https://wallpaperboat.com/hell-wallpapers
+    //create the table
+    imgarr = {
+      1:document.getElementById(`image1`),
+      2:document.getElementById(`image2`),
+      3:document.getElementById(`image3`),
+      4:document.getElementById(`image4`)
+    }
+    canvas = document.getElementById("main_canvas_view")
+    canvas.width = document.getElementById(`image1`).width
+    canvas.height = document.getElementById(`image1`).height
+    w = canvas.width
+    h = canvas.height
+    ctx = canvas.getContext("2d");
+    carousel()
+
+
     new TypeIt("#typeme", {
         strings: "Contact Tracing by Hacky Stack",
-        speed: 35,
-        loop: false
+        speed: 100,
+        loop: true
       }).go();
-
+      new TypeIt("#typeme2", {
+        strings: "About Us",
+        speed: 200,
+        loop: true
+      }).go();
 
   // Setup sigma window
   s = new sigma({
@@ -250,4 +278,68 @@ req.addEventListener('load',function(){
   }});
 req.send();
 
+}
+
+
+function back(){
+  perv_image = cur_image
+  if (cur_image >= 4){
+    cur_image = 1
+  }
+  else if (cur_image < 1){ 
+    cur_image = 4
+  } else {
+    cur_image += 1
+  }
+  draw_animation(cur_image, perv_image,1);
+}
+function forward(){
+  perv_image = cur_image
+
+  if (cur_image == 1){ 
+    cur_image = 4
+  } else {
+    cur_image -= 1
+  }
+  draw_animation(cur_image, perv_image,0);
+}
+function carousel(){
+  //bring images over each other
+  forward();
+  setTimeout(carousel,5000);
+}
+function draw_animation(cur_, perv_,dir){
+  let cimg = imgarr[cur_];
+  let pimg = imgarr[perv_];
+  let startwpos = canvas.width;
+  let vel = -10
+  if (dir == 0){
+    startwpos = 0
+    vel = +10;
+  }
+  
+  function draw(){
+    if (cur_image != cur_){
+      return
+    }
+    
+    if (dir == 0){
+
+      ctx.drawImage(cimg, 0, 0,w,h,0,0,w,h);
+      ctx.drawImage(pimg, startwpos,0,w,h,0,0,w,h);
+      if (startwpos <= canvas.width){
+        startwpos += vel
+        window.requestAnimationFrame(draw);
+      }
+    } else {
+      ctx.drawImage(pimg, 0,0,w,h,0,0,w,h);
+      ctx.drawImage(cimg, startwpos,0,w,h,0,0,w,h);
+      if (startwpos >= 1){
+      startwpos += vel
+      window.requestAnimationFrame(draw);
+    }
+  }
+  }
+
+  draw()
 }
