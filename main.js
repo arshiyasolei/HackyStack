@@ -56,9 +56,28 @@ window.onload = function(){
   getLocalJson();
 }
 
+function updateGraph(data) {
+  console.log(data);
+  var nodeArray = {};
+  for (var n of data["nodes"]) {
+    nodeArray[n["id"]] = n["color"] == "#f00";
+  }
+  for (var i in data["edges"]) {
+    if (nodeArray[data["edges"][i]["source"]] || nodeArray[data["edges"][i]["target"]]) {
+      data["edges"][i]["color"] = "#f22";
+    }
+  }
+  console.log(data["edges"]);
+  s.graph.clear();
+  s.graph.read(data);
+  s.refresh();
+  return data;
+}
+
 function getLocalJson() {
   fetch("data.json")
   .then(response => response.json())
+  .then(json => updateGraph(json))
   .then(json => populateTable(json));
 }
 
