@@ -1,4 +1,4 @@
-vim mysql = require('mysql')
+mysql = require('mysql')
 var pool = mysql.createPool({
 
     connectionLimit: 100,
