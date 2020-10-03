@@ -59,8 +59,7 @@ window.onload = function(){
 function getLocalJson() {
   fetch("data.json")
   .then(response => response.json())
-  .then(json => populateTable(json))
-  .then(animate());
+  .then(json => populateTable(json));
 }
 
 function animate() {
