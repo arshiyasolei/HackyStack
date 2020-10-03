@@ -26,9 +26,33 @@ const app = express();
 const port = process.argv[2] || 8910
 app.set("port", port)
 
+//
+// handlebars
+//
+app.engine(
+    "handlebars",
+    exphbs({
+        defaultLayout: "main",
+        layoutsDir: path.join(__dirname, "views/layouts"),
+        partialsDir: path.join(__dirname, "views/partials")
+    })
+);
+app.set("view engine", "handlebars");
+
+app.use(express.static(path.join(__dirname, "static")));
 
 //
+// Logger function (displays all received requests to command line)
 //
+function logger(req, res, next) {
+    console.log("Req: ", "--Method", req.method, "--URL:", req.url)
+    next();
+}
+app.use(logger)
+
+
+//
+// Connecting router(s)
 //
 app.use("/", indexRouter)
 
@@ -52,29 +76,6 @@ app.use(function(err, req, res, next){
   res.send('500 - Server Error');
 });
 
-//
-// Logger function (displays all received requests to command line)
-//
-app.use(function(req, res, next) {
-    console.log("Req: ", "--Method", req.method, "--URL:", req.url)
-    next();
-});
-
-
-//
-// handlebars
-//
-app.engine(
-    "handlebars",
-    exphbs({
-        defaultLayout: "main",
-        layoutsDir: path.join(__dirname, "views/layouts"),
-        partialsDir: path.join(__dirname, "views/partials")
-    })
-);
-app.set("view engine", "handlebars");
-
-app.use(express.static(path.join(__dirname, "static")));
 
 //
 // Listen for requests on "port"

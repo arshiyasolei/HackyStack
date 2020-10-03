@@ -11,7 +11,7 @@ const router = express.Router();
 // Root path.
 //
 router.get("/", middleware.middle,(req, res, next) => {
-    res.status(200).render("index")
+    res.status(200).send("../static/index.html");
 });
 
 //
