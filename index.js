@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/", function (req, res) {
 
   index_path = path.resolve(__dirname, "../public/index.html");
- 
+
   res.status(200).sendFile(index_path);
 });
 
@@ -108,7 +108,7 @@ function get_data(req, res) {
 
                   // Pushing to the infect_conn array.
                   infect_conn.push(single_data);
-                  
+
                 })
                   //console.log(single_conn_data);
                   let result = {nodes: people, edges: infect_conn}
@@ -116,7 +116,7 @@ function get_data(req, res) {
                   res.send(result)
                   // Packing nodes and edges into a single object to send to the client.
 
-                  
+
               });
           });
       });
@@ -152,10 +152,10 @@ function postData(req,res){
       if (err){
         console.error(err.message)
         return
-      }  
+      }
       db.serialize(function() {
           for (let i = 0; i < req.body.lili.length; i ++){
-          db.run(`INSERT INTO infect_conn (p1_id, p2_id) VALUES ((SELECT pid FROM people WHERE name=?), (SELECT pid FROM people WHERE name=?));`,req.body.name, req.body.lili[i],function(err){     
+          db.run(`INSERT INTO infect_conn (p1_id, p2_id) VALUES ((SELECT pid FROM people WHERE name=?), (SELECT pid FROM people WHERE name=?));`,req.body.name, req.body.lili[i],function(err){
             if (err){
               console.error(err.message)
               return
