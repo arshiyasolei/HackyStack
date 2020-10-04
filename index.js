@@ -41,6 +41,7 @@ function get_data(req, res) {
       if (err) {
           console.error(err.message);
           res.status(500).send("Unable to retrieve users.");
+          return
       }
 
   });
@@ -49,13 +50,15 @@ function get_data(req, res) {
 
   // Query the database for each person.
   db.serialize(() => {
-      db.each(`SELECT * FROM people`, (err, person) => {
+      db.all(`SELECT * FROM people`, (err, person) => {
           if (err) {
               console.error(err.message);
+              return
           }
           // Setting variables used in data arrangement.
-          pid = person.pid;
-          is_inf = person.is_inf;
+          person.forEach((onePerson) => {
+          pid = onePerson.pid;
+          is_inf = onePerson.is_inf;
 
           var color;
           if (is_inf) {
@@ -66,7 +69,7 @@ function get_data(req, res) {
 
           // Arranging data into correct format.
           person_data = {id: "n" + pid,
-                         label: person.name,
+                         label: onePerson.name,
                          x: 1,
                          y: 1,
                          size: 1,
@@ -74,7 +77,7 @@ function get_data(req, res) {
 
           // Pushing to the people array.
           people.push(person_data);
-
+        })
 
           //
           // Nested
@@ -84,35 +87,34 @@ function get_data(req, res) {
 
           // Query the database for each connection.
           db.serialize(() => {
-              db.each(`SELECT * FROM infect_conn`, (err, single_conn) => {
+              db.all(`SELECT * FROM infect_conn`, (err, single_conn) => {
                   if (err) {
                       console.error(err.message);
+                      return
                   }
-
+                  single_conn.forEach((single) => {
                   // Setting variables used in data arrangement.
-                  cid = single_conn.cid;
-                  p1_id = single_conn.p1_id;
-                  p2_id = single_conn.p2_id;
+                  cid = single.cid;
+                  p1_id = single.p1_id;
+                  p2_id = single.p2_id;
 
                   // Arranging data into correct format.
-                  single_conn_data = {id: "e" + cid,
+                  single_data = {id: "e" + cid,
                                       source: "n" + p1_id,
                                       target: "n" + p1_id,
                                       color: "#088"}
 
                   // Pushing to the infect_conn array.
-                  infect_conn.push(single_conn_data);
-
-                  //console.log(single_conn_data);
-
-                  // Packing nodes and edges into a single object to send to the client.
-                  var result = {nodes: people,
-                                edges: infect_conn}
-
-                  console.log(result)
+                  infect_conn.push(single_data);
                   
-                  console.log("ouch")
-                  res.send(result);
+                })
+                  //console.log(single_conn_data);
+                  let result = {nodes: people, edges: infect_conn}
+                  console.log(result)
+                  res.send(result)
+                  // Packing nodes and edges into a single object to send to the client.
+
+                  
               });
           });
       });
