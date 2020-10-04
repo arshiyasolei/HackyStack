@@ -20,7 +20,6 @@ const postDataRouter = require("./routers/postDataRouter");
 // Create new express app.
 //
 const app = express();
-app.use(express.static('public'))
 const port = process.argv[2] || 8910
 app.set("port", port)
 

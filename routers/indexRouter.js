@@ -8,8 +8,11 @@ const sqlite3 = require("sqlite3").verbose();
 const router = express.Router();
 
 
-router.post("/", function (req, res) {
-    res.status(200).send("./public/index.html");
+router.get("/", function (req, res) {
+
+    index_path = path.resolve(__dirname, "../public/index.html");
+
+    res.status(200).sendFile(index_path);
 });
 
 //
