@@ -36,7 +36,7 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-app.use(express.static(path.join(__dirname, "static")));
+app.use(express.static(path.join(__dirname, "public")));
 
 //
 // Logger function (displays all received requests to command line)
