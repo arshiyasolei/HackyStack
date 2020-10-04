@@ -81,7 +81,7 @@ function populateTable(data) {
     nodeData[edge["source"]] += 1;
     nodeData[edge["target"]] += 1;
   }
-
+  console.log(nodeData)
   for (var i in data["nodes"]) {
     tableData[i][2] = nodeData[data["nodes"][i]["id"]];
   }
@@ -114,12 +114,13 @@ function populateTable(data) {
 }
 
 function addPerson() {
-  console.log("infected?",document.getElementsByName("userinput_check")[0].checked
-)
+
     let data = {
-      name: document.getElementsByName("userinput_name")[0].checked,
-      infected: document.getElementsByName("userinput_check")[0].checked
+      name: document.getElementsByName("userinput_name")[0].value,
+      infected: document.getElementsByName("userinput_check")[0].checked,
+      lili: document.getElementsByName("userinput_list")[0].value.split(" ")
   };
+  console.log(data)
   fetch("/postJason", {
     method: "POST",
     headers: new Headers({'content-type': 'application/json'}),

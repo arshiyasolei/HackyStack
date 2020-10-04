@@ -67,12 +67,13 @@ function get_data(req, res) {
           } else {
               color = "#00f";
           }
-
+          mult1 = 1
+          mult2 = 2
           // Arranging data into correct format.
           person_data = {id: "n" + pid,
                          label: onePerson.name,
-                         x: 1,
-                         y: 1,
+                         x: pid * (Math.random() % 10),
+                         y: pid *  (Math.random() % 10),
                          size: 1,
                          color: color};
 
@@ -102,7 +103,7 @@ function get_data(req, res) {
                   // Arranging data into correct format.
                   single_data = {id: "e" + cid,
                                       source: "n" + p1_id,
-                                      target: "n" + p1_id,
+                                      target: "n" + p2_id,
                                       color: "#088"}
 
                   // Pushing to the infect_conn array.
@@ -130,11 +131,48 @@ app.get("/getJason", function (req, res) {
   get_data(req,res)
 });
 
-function postData(){
+function postData(req,res){
+
+  // Resolve path to db.
+  db_path = path.resolve(__dirname, "./db/contact.db");
+
+  // Opening db.
+  let db = new sqlite3.Database(db_path, (err) => {
+
+      if (err) {
+          console.error(err.message);
+          res.status(500).send("Unable to retrieve users.");
+          return
+      }
+
+  });
+  db.serialize(function(){
+
+    db.run(`INSERT INTO people (name , is_inf) VALUES (?, ?);`,req.body.name, req.body.infected,function(err){
+      if (err){
+        console.error(err.message)
+        return
+      }  
+      db.serialize(function() {
+          for (let i = 0; i < req.body.lili.length; i ++){
+          db.run(`INSERT INTO infect_conn (p1_id, p2_id) VALUES ((SELECT pid FROM people WHERE name=?), (SELECT pid FROM people WHERE name=?));`,req.body.name, req.body.lili[i],function(err){     
+            if (err){
+              console.error(err.message)
+              return
+            }
+          })
+        }
+
+
+        })
+    });
+
+  });
 
 }
 app.post("/postJason", function (req, res) {
     console.log(req.body)
+    postData(req,res)
 });
 
 //
