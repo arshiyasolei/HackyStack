@@ -7,13 +7,6 @@ const exphbs = require("express-handlebars");
 const path = require("path");
 const bodyParser = require("body-parser");
 
-
-//
-// Database connection
-//
-const mysql = require("./dbcon.js");
-
-
 //
 // Routers
 //
