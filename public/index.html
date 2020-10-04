@@ -1,0 +1,134 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href= "/main.css">
+    <!-- Sigma.js -->
+    <script src="sigma.min.js"></script>
+    <script src="sigma.parsers.json.min.js"></script>
+    <script src="sigma.plugins.animate.min.js"></script>
+    
+    <script src="main.js"></script>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/botui/build/botui.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/botui/build/botui-theme-default.css">
+
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.min.js"></script>
+
+    <script src="https://unpkg.com/botui/build/botui.min.js"></script>
+
+    <title>Contact Tracing by Hacky Stack</title>
+  </head>
+
+  <body>
+  
+  <h2 id= "typeme" class="text-dark text-center mt-5 mb-5"></h2>
+
+
+  <div class="container-fluid pb-5">
+  <div id="graph container" class="container-fluid" style="height: 50vh;"></div>
+  </div>
+
+  <div class="container">
+    <table class="table table-bordered" id="main_table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Infection status</th>
+          <th scope="col">Number of contacts</th>
+        </tr>
+      </thead>  
+      <tbody id = "main_t_body">
+        </tbody>
+    </table>
+  
+    </div>
+    <div class="container pb-3 pt-2 text-center">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+        Add a contact!
+      </button>
+    </div>
+
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+           
+  <div class="container text-center">
+    <form  onsubmit="return false">
+      <div class="form-group mt-3 mb-3">
+      <label for="submitting_workout">name</label>
+      <input class="form-control" id="1" type="text" name="userinput_name">
+    </div>
+    <div class="form-group mt-3 mb-3">
+      <label for="submitting_workout">Infected?</label>
+      <input class="form-control" id="2" type="checkbox" name="userinput_check">
+    </div>
+
+    <div class="form-group mt-3 mb-3">
+      <label for="submitting_workout">list of people you know</label>
+      <input class="form-control" id="3" type="text" name="userinput_list">
+    </div>
+
+  
+    <div class="container">
+      <button class="btn btn-primary mt-3 mb-3 " onclick="addPerson()" value="Send">Send</button>
+    </div>
+    </form>
+    </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <iframe src="https://ourworldindata.org/grapher/total-cases-covid-19?tab=map" width="100%" height="600px"></iframe>
+  <h2 id= "typeme2" class="text-dark text-center mt-5"></h2>
+
+  <div class="container text-center pb-5 pt-5">
+    <div class="row">
+      <div class="col-sm">
+        Arshia Soleimanimoorchehkhorti is a second-year computer science student at Oregon State University. He and Allen built the front end of this website. He likes solving programming puzzles and making web projects in his free time.
+      </div>
+      <div class="col-sm">
+        Zackary Tayler is a third-year computer science student at Oregon State University. He and Arshia built the backend of this website. He likes writing mathematical proofs, climbing, and hiking!
+      </div>
+      <div class="text-left col-sm">
+        Allen Benjamin is a second year computer science student at Oregon State university. He and Arshia built the front end of this website. He likes playing CTF and making iOS apps in his free time. Speaking of which, you should go check out his latest app, GrandCards at <a href="http://www.sinclusto.com/grandcards.html">sinclusto.com</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+
+<footer>
+  <div class="container-fluid mh-100 text-center pt-5 pb-5 bg-light">
+  <a class= "text-dark"href= "http://www.github.com/arshiyasolei">@arshiyasolei , @taylozac , @bobbySinclusto</a>
+</div>
+</footer>
+</html>
+

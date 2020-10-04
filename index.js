@@ -6,18 +6,7 @@ const hbs = require("handlebars");
 const exphbs = require("express-handlebars");
 const path = require("path");
 const bodyParser = require("body-parser");
-
-
-//
-// Database connection
-//
-const mysql = require("./dbcon.js");
-
-
-//
-// Routers
-//
-const indexRouter = require("./routers/indexRouter")
+const sqlite3 = require("sqlite3").verbose();
 
 //
 // Create new express app.
@@ -26,36 +15,165 @@ const app = express();
 const port = process.argv[2] || 8910
 app.set("port", port)
 
-//
-// handlebars
-//
-app.engine(
-    "handlebars",
-    exphbs({
-        defaultLayout: "main",
-        layoutsDir: path.join(__dirname, "views/layouts"),
-        partialsDir: path.join(__dirname, "views/partials")
-    })
-);
-app.set("view engine", "handlebars");
+app.use(express.json());
 
-app.use(express.static(path.join(__dirname, "static")));
-
-//
-// Logger function (displays all received requests to command line)
-//
-function logger(req, res, next) {
-    console.log("Req: ", "--Method", req.method, "--URL:", req.url)
-    next();
-}
-app.use(logger)
+app.use(express.static(path.join(__dirname, "public")));
 
 
 //
 // Connecting router(s)
 //
-app.use("/", indexRouter)
+app.get("/", function (req, res) {
 
+  index_path = path.resolve(__dirname, "../public/index.html");
+ 
+  res.status(200).sendFile(index_path);
+});
+
+
+function get_data(req, res) {
+
+  // Resolve path to db.
+  db_path = path.resolve(__dirname, "./db/contact.db");
+
+  // Opening db.
+  let db = new sqlite3.Database(db_path, (err) => {
+
+      if (err) {
+          console.error(err.message);
+          res.status(500).send("Unable to retrieve users.");
+          return
+      }
+
+  });
+
+  var people = [];
+
+  // Query the database for each person.
+  db.serialize(() => {
+      db.all(`SELECT * FROM people`, (err, person) => {
+          if (err) {
+              console.error(err.message);
+              return
+          }
+          // Setting variables used in data arrangement.
+          person.forEach((onePerson) => {
+          pid = onePerson.pid;
+          is_inf = onePerson.is_inf;
+
+          var color;
+          if (is_inf) {
+              color = "#f00";
+          } else {
+              color = "#00f";
+          }
+          mult1 = 1
+          mult2 = 2
+          // Arranging data into correct format.
+          person_data = {id: "n" + pid,
+                         label: onePerson.name,
+                         x: pid * (Math.random() % 10),
+                         y: pid *  (Math.random() % 10),
+                         size: 1,
+                         color: color};
+
+          // Pushing to the people array.
+          people.push(person_data);
+        })
+
+          //
+          // Nested
+          //
+
+          var infect_conn = [];
+
+          // Query the database for each connection.
+          db.serialize(() => {
+              db.all(`SELECT * FROM infect_conn`, (err, single_conn) => {
+                  if (err) {
+                      console.error(err.message);
+                      return
+                  }
+                  single_conn.forEach((single) => {
+                  // Setting variables used in data arrangement.
+                  cid = single.cid;
+                  p1_id = single.p1_id;
+                  p2_id = single.p2_id;
+
+                  // Arranging data into correct format.
+                  single_data = {id: "e" + cid,
+                                      source: "n" + p1_id,
+                                      target: "n" + p2_id,
+                                      color: "#088"}
+
+                  // Pushing to the infect_conn array.
+                  infect_conn.push(single_data);
+                  
+                })
+                  //console.log(single_conn_data);
+                  let result = {nodes: people, edges: infect_conn}
+                  console.log(result)
+                  res.send(result)
+                  // Packing nodes and edges into a single object to send to the client.
+
+                  
+              });
+          });
+      });
+  });
+}
+
+
+//
+// getJason path.
+//
+app.get("/getJason", function (req, res) {
+  get_data(req,res)
+});
+
+function postData(req,res){
+
+  // Resolve path to db.
+  db_path = path.resolve(__dirname, "./db/contact.db");
+
+  // Opening db.
+  let db = new sqlite3.Database(db_path, (err) => {
+
+      if (err) {
+          console.error(err.message);
+          res.status(500).send("Unable to retrieve users.");
+          return
+      }
+
+  });
+  db.serialize(function(){
+
+    db.run(`INSERT INTO people (name , is_inf) VALUES (?, ?);`,req.body.name, req.body.infected,function(err){
+      if (err){
+        console.error(err.message)
+        return
+      }  
+      db.serialize(function() {
+          for (let i = 0; i < req.body.lili.length; i ++){
+          db.run(`INSERT INTO infect_conn (p1_id, p2_id) VALUES ((SELECT pid FROM people WHERE name=?), (SELECT pid FROM people WHERE name=?));`,req.body.name, req.body.lili[i],function(err){     
+            if (err){
+              console.error(err.message)
+              return
+            }
+          })
+        }
+
+
+        })
+    });
+
+  });
+
+}
+app.post("/postJason", function (req, res) {
+    console.log(req.body)
+    postData(req,res)
+});
 
 //
 //
