@@ -52,8 +52,8 @@ function updateGraph(data) {
   return data;
 }
 
-function getlJason() {
-  fetch("/getlJason")
+function getJason() {
+  fetch("/getJason")
   .then(response => response.json())
   .then(json => updateGraph(json))
   .then(json => populateTable(json));
@@ -126,7 +126,7 @@ function addPerson() {
     body: JSON.stringify(data)
   }).then(res => {
     console.log("Request complete! response:", res);
-    getlJason()
+    getJason()
   });
   event.preventDefault();
 }
