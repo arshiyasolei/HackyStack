@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/", function (req, res) {
 
     index_path = path.resolve(__dirname, "../public/index.html");
-
+   
     res.status(200).sendFile(index_path);
 });
 
