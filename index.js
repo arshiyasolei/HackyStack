@@ -15,6 +15,7 @@ const app = express();
 const port = process.argv[2] || 8910
 app.set("port", port)
 
+app.use(express.json());
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -129,9 +130,11 @@ app.get("/getJason", function (req, res) {
   get_data(req,res)
 });
 
+function postData(){
 
+}
 app.post("/postJason", function (req, res) {
-  res.status(200);
+    console.log(req.body)
 });
 
 //

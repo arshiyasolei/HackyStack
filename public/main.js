@@ -117,8 +117,8 @@ function addPerson() {
   console.log("infected?",document.getElementsByName("userinput_check")[0].checked
 )
     let data = {
-      name: document.getElementsByName("userinput_name")[0].value,
-      infected: document.getElementsByName("userinput_check")[0].value
+      name: document.getElementsByName("userinput_name")[0].checked,
+      infected: document.getElementsByName("userinput_check")[0].checked
   };
   fetch("/postJason", {
     method: "POST",
