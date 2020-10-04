@@ -8,8 +8,8 @@ const sqlite3 = require("sqlite3").verbose();
 const router = express.Router();
 
 
-router.post("/", function (req, res) {
-    res.status(200).send("./public/index.html");
+router.post("/postJason", function (req, res) {
+    res.status(200);
 });
 
 //

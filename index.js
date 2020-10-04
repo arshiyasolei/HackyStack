@@ -7,10 +7,14 @@ const exphbs = require("express-handlebars");
 const path = require("path");
 const bodyParser = require("body-parser");
 
+
 //
 // Routers
 //
-const indexRouter = require("./routers/indexRouter")
+const indexRouter = require("./routers/indexRouter");
+const getDataRouter = require("./routers/getDataRouter");
+const postDataRouter = require("./routers/postDataRouter");
+
 
 //
 // Create new express app.
@@ -48,8 +52,9 @@ app.use(logger)
 //
 // Connecting router(s)
 //
-app.use("/", indexRouter)
-
+app.use("/", indexRouter);
+app.use("/getJason", getDataRouter);
+app.use("/postJason", postDataRouter);
 
 //
 //

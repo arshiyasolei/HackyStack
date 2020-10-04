@@ -31,7 +31,7 @@ window.onload = function(){
   sigma.parsers.json('data.json', s, function() {
     s.refresh();
   });
-  getlJason();
+  getJason();
 }
 
 function updateGraph(data) {
@@ -94,7 +94,7 @@ function populateTable(data) {
       if (row[1]) {
         tr.style = "background: #f99";
       }
-      
+
       // Name
       td = document.createElement("td");
       td.innerHTML = row[0];
